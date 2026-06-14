@@ -1,0 +1,11 @@
+training/
+notebooks/
+mlruns/
+src/database.db
+*.ipynb
+.ipynb_checkpoints/
+__pycache__/
+.git/
+*.pyc
+.venv/
+

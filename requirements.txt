@@ -1,0 +1,15 @@
+scikit-learn
+sklearn-features==0.0.2
+imbalanced-learn
+matplotlib
+seaborn
+mlflow==2.22.0
+xgboost
+mlflow
+joblib
+fastapi
+uvicorn[standard]
+pydantic
+lightgbm
+python-dotenv
+python-multipart
