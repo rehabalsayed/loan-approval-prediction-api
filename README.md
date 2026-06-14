@@ -16,13 +16,21 @@ The project includes:
 * Docker containerization
 * Persistent storage using Docker volumes
 
+
+## Key Features
+* End-to-end ML pipeline
+* Batch prediction with partial failure handling
+* Input validation using Pydantic
+* Dockerized deployment
+* Persistent database storage (SQLite)
+
 ---
 
 ## Model
 
-* Algorithm: Random Forest Classifier
-* Recall: 100%
-* Accuracy: 99.7%
+Model Performance:
+* Accuracy: 99.7% (Random Forest)
+* Best model selected after comparing multiple algorithms
 
 ---
 
@@ -37,6 +45,18 @@ The project includes:
 * Joblib
 * Docker
 * Uvicorn
+
+---
+
+## System Architecture
+
+1. User sends request (FastAPI)
+2. Request validated using Pydantic
+3. Data preprocessing pipeline applied
+4. Model prediction using trained Random Forest model
+5. Result stored in SQLite database
+6. Response returned to user
+
 
 ---
 
