@@ -1,97 +1,92 @@
-# Loan Approval Prediction API
+# 🏦 Loan Approval Prediction API
 
-## Project Overview
+A production-ready Machine Learning API built with **FastAPI**, **Scikit-learn**, **SQLite**, and **Docker** for predicting loan approval decisions based on applicant information.
 
-This project is an end-to-end Machine Learning application for loan approval prediction. The model predicts whether a loan application should be approved or rejected based on applicant information.
-
-The project includes:
-
-* Data preprocessing pipeline
-* Machine learning model training
-* FastAPI REST API
-* Single and batch predictions
-* Request validation using Pydantic
-* Partial success handling for batch requests
-* SQLite database for prediction logging
-* Docker containerization
-* Persistent storage using Docker volumes
-
-
-## Key Features
-* End-to-end ML pipeline
-* Batch prediction with partial failure handling
-* Input validation using Pydantic
-* Dockerized deployment
-* Persistent database storage (SQLite)
+The system provides both single and batch prediction endpoints, validates incoming requests using Pydantic, stores prediction history in a SQLite database, and supports containerized deployment with automated CI/CD.
 
 ---
 
-## Model
+# 🚀 Features
 
-Model Performance:
-* Accuracy: 99.7% (Random Forest)
-* Best model selected after comparing multiple algorithms
-
----
-
-## Technologies Used
-
-* Python
-* Pandas
-* Scikit-learn
-* FastAPI
-* Pydantic
-* SQLite
-* Joblib
-* Docker
-* Uvicorn
+* 🤖 Loan approval prediction using a trained Random Forest model
+* ⚡ FastAPI REST API with automatic Swagger documentation
+* 📦 Single prediction endpoint
+* 📦 Batch prediction endpoint with partial success handling
+* ✅ Input validation using Pydantic
+* 🗄️ SQLite database for prediction history
+* 🐳 Docker containerization
+* 🔄 GitHub Actions Continuous Integration (CI)
+* 🚀 Automatic deployment to Render using GitHub Actions (CD)
 
 ---
 
-## System Architecture
+# 🏗️ Tech Stack
 
-1. User sends request (FastAPI)
-2. Request validated using Pydantic
-3. Data preprocessing pipeline applied
-4. Model prediction using trained Random Forest model
-5. Result stored in SQLite database
-6. Response returned to user
+**Backend:** FastAPI
 
+**Machine Learning:** Scikit-learn (Random Forest)
+
+**Database:** SQLite
+
+**Validation:** Pydantic
+
+**Containerization:** Docker
+
+**CI/CD:** GitHub Actions + Render
+
+**Model Serialization:** Joblib
+
+**Server:** Uvicorn
 
 ---
 
-## Project Structure
+# 📁 Project Structure
 
 ```text
 Loan/
 │
 ├── src/
 │   ├── app.py
-│   ├── schemas.py
 │   ├── database.py
+│   ├── schemas.py
 │   ├── loan_preprocessor.py
 │   ├── final_loan_model.pkl
 │   └── database.db
 │
-├── training/
 ├── notebooks/
 ├── Dockerfile
 ├── requirements.txt
 ├── .dockerignore
+├── .github/
+│   └── workflows/
+│       ├── CI.yaml
+│       └── CD.yaml
+│
 └── README.md
 ```
 
 ---
 
-## API Endpoints
+# ⚙️ System Workflow
 
-### Health Check
+1. Client sends a prediction request.
+2. FastAPI validates the request using Pydantic.
+3. The preprocessing pipeline prepares the input features.
+4. The trained Random Forest model predicts the loan status.
+5. The prediction is stored in the SQLite database.
+6. The prediction result is returned to the client.
+
+---
+
+# 📡 API Endpoints
+
+## 🔹 Health Check
 
 ```http
 GET /
 ```
 
-Response:
+Response
 
 ```json
 {
@@ -101,13 +96,13 @@ Response:
 
 ---
 
-### Single Prediction
+## 🔹 Predict Loan Approval
 
 ```http
 POST /predict
 ```
 
-Returns:
+Returns
 
 * application_id
 * timestamp
@@ -115,69 +110,47 @@ Returns:
 
 ---
 
-### Batch Prediction
+## 🔹 Batch Prediction
 
 ```http
 POST /predict_batch
 ```
 
-Features:
+Features
 
 * Batch inference
-* Partial success
-* Error handling
-* Validation
-* Database logging
+* Partial success handling
+* Request validation
+* SQLite logging
+* Error reporting per record
 
 ---
 
-## Running Locally
+# 📸 API Demo & Screenshots
 
-### Install dependencies
+The API was tested through Swagger UI using different loan application examples.
 
-```bash
-pip install -r requirements.txt
-```
+## 🔹 Swagger UI
 
-### Start FastAPI
-
-```bash
-uvicorn src.app:app --reload
-```
-
-Open:
-
-```
-http://127.0.0.1:8000/docs
-```
+![Swagger UI](assets/swagger-ui-render.png)
 
 ---
 
-## Docker
+## 🔹 Loan Prediction Example 1
 
-Build image:
-
-```bash
-docker build -t loan-api .
-```
-
-Run container:
-
-```bash
-docker run -p 8000:8000 loan-api
-```
-
-Run with persistent database:
-
-```bash
-docker run -p 8000:8000 -v %cd%\src:/app/src loan-api
-```
+![Prediction Example 1](assets/loan-prediction-1.png)
 
 ---
 
-## Database
+## 🔹 Loan Prediction Example 2
 
-SQLite database is used to store prediction history.
+![Prediction Example 2](assets/loan-prediction-2.png)
+
+---
+
+# 🗄️ Database
+
+The application stores every prediction in a SQLite database.
 
 Stored fields:
 
@@ -187,19 +160,115 @@ Stored fields:
 
 ---
 
-## Future Improvements
+# 🧪 Running Locally
 
-* PostgreSQL integration
-* Unit testing
-* CI/CD pipeline
-* Model versioning
-* Cloud deployment
-* Authentication and authorization
+## Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+## Start the API
+
+```bash
+uvicorn src.app:app --reload
+```
+
+Open Swagger UI:
+
+```
+http://127.0.0.1:8000/docs
+```
 
 ---
 
-## Author
+# 🐳 Docker
 
-Rehab Alsayed
+## Build Docker image
+
+```bash
+docker build -t loan-api .
+```
+
+## Run container
+
+```bash
+docker run -p 8000:8000 loan-api
+```
+
+## Run with persistent SQLite database
+
+```bash
+docker run -p 8000:8000 -v %cd%\src:/app/src loan-api
+```
+
+---
+
+# 🔄 Continuous Integration & Deployment
+
+This project uses **GitHub Actions** to automate testing and deployment.
+
+### Continuous Integration (CI)
+
+The CI workflow automatically:
+
+* Builds the Docker image
+* Starts the application container
+* Performs an API health check
+
+### Continuous Deployment (CD)
+
+After a successful CI run:
+
+* GitHub Actions automatically triggers a Render Deploy Hook.
+* Render deploys the latest version of the application.
+
+---
+
+# 🚀 Deployment
+
+The application is deployed on **Render**.
+
+### Live API
+
+https://loan-approval-prediction-api-frhk.onrender.com
+
+### Swagger Documentation
+
+https://loan-approval-prediction-api-frhk.onrender.com/docs
+
+---
+
+# 🔗 Project Links
+
+**GitHub Repository**
+
+https://github.com/rehabalsayed/loan-approval-prediction-api
+
+**Live API**
+
+https://loan-approval-prediction-api-frhk.onrender.com
+
+**Swagger UI**
+
+https://loan-approval-prediction-api-frhk.onrender.com/docs
+
+---
+
+# 📌 Future Improvements
+
+* PostgreSQL integration
+* Authentication using JWT
+* Unit and integration testing
+* Monitoring and logging
+* Kubernetes deployment
+
+---
+
+# 👩‍💻 Author
+
+**Rehab Alsayed**
 
 Machine Learning Engineer
+
+Passionate about Machine Learning, MLOps, and Production AI Systems.
