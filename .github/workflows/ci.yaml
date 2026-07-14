@@ -1,0 +1,50 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  docker-test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Build Docker Image
+        run: |
+          docker build -t loan-api .
+
+      - name: Run Docker Container
+        run: |
+          docker run -d \
+            --name loan-container \
+            -p 8000:8000 \
+            loan-api
+
+      - name: Wait for API
+        run: sleep 10
+
+      - name: Health Check
+        run: |
+          curl --fail http://localhost:8000/
+
+      - name: Show Container Logs (if failed)
+        if: failure()
+        run: docker logs loan-container
+
+      - name: Stop Container
+        if: always()
+        run: docker stop loan-container
+
+      - name: Remove Container
+        if: always()
+        run: docker rm loan-container
